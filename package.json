@@ -4,7 +4,9 @@
     "description": "Express serving and Handlebars templating",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js"
+        "start": "node server.js",
+        "build": "handlebars views/partials/book.handlebars -f static/bookTemplate.js",
+        "prestart": "npm run build"
     },
     "dependencies": {
         "express": "^4.21.2",

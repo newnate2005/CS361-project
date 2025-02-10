@@ -2,18 +2,17 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Project</title>
+    <title>Bookshelf</title>
 
-    <link rel="stylesheet" href="/main-page/style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Modern+Antiqua&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.8/handlebars.js" charset="utf-8" defer></script>
+    <script src="/bookTemplate.js" charset="utf-8" defer></script>
+    <script src="/index.js" charset="utf-8" defer></script>
 
-    <script src="/main-page/index.js" charset="utf-8" defer></script>
   </head>
   <body>
     <header>  
-        <h1 class="site-title"><a href="#">Online Library</a></h1>
+        <h1><a class="site-title" href="#">Bookshelf</a></h1>
     </header>
 
     {{{body}}}

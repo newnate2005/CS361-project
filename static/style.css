@@ -1,0 +1,290 @@
+html, body
+{
+    background-color: #bb9457;
+    margin: 0;
+    padding: 0;
+}
+
+header
+{
+    background-color: #432818;
+    width: auto;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+
+.site-title
+{
+    color: #bb9457;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-decoration: none;
+}
+
+.bookshelf
+{
+    /* background-image: url("bookshelf.png");
+    background-size: cover; */
+    border: 15px ridge #432818;
+    height: 900px;
+    max-width: 75%;
+    margin: 15px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+}
+
+.book {
+    display: inline-block;
+    vertical-align: top;
+    height: 200px;
+    width: 200px;
+    margin: 10px;
+    padding: 10px;
+    color: #432818;
+    font-size: larger;
+    background-color: #b17042;
+    border: 5px solid #432818;
+    border-radius: 3px;
+}
+
+.book-contents {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+.book-info-container {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#add-book-button 
+{
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    height: 100px;
+    width: 100px;
+    background-color: #d1b262;
+    border-color: #99582a;
+    border-width: 4px;
+    border-radius: 15px;
+    cursor: pointer;
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+}
+  
+#add-book-button:hover 
+{
+    background-color: #d3a356;    
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #99582a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ffe6a7;
+    border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d1b262;
+}
+
+/* -------------- Filter CSS Stuff ------------------ */
+
+.filter-container {
+    display: none; /* Until filters are actually implemented */
+
+    position: sticky;
+    bottom: 90%;
+    left: 85%;
+
+    min-width: 200px;
+    max-width: 250px;
+    margin: 25px;
+    padding: 20px;
+    border-radius: 3px;
+    background-color: #99582a;
+  }
+  
+  .filter-container h2 {
+    margin: 0;
+  }
+  
+  .filter-input-container {
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-input-element {
+    margin: 0 5px;
+    flex: 1 1 100%;
+  }
+  
+  .filter-input {
+    font-size: 14px;
+    width: 100%;
+    margin-left: 10px;
+    padding: 3px;
+    background-color: #d1b673;
+    border: 1px solid #d1b673;
+    border-radius: 3px;
+  }
+  
+  .action-button {
+    font-size: 20px;
+    color: #d1b673;
+    padding: 10px;
+    background-color: #432818;
+    border: 1px solid #99582a;
+    border-radius: 5px;
+    font-weight: lighter;
+    cursor: pointer;
+  }
+  
+  .action-button:hover {
+    background-color: #d1b262;
+    border-color: #432818;
+    color: #432818;
+  }
+  
+  #filter-update-button {
+    width: 100%;
+  }
+
+
+/* -------------- Modal CSS Stuff ------------------- */
+
+.hidden
+{
+    display: none;
+}
+
+#book-backdrop 
+{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+#add-book-modal 
+{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1010;
+    overflow: auto;
+}
+
+.modal-dialog 
+{
+    width: auto;
+    max-width: 600px;
+    min-width: 350px;
+    min-height: 300px;
+    margin: 40px auto;
+    background-color: #bb9457;
+    border: #432818 solid 5px;
+}
+
+.modal-header 
+{
+    position: relative;
+    padding: 10px 20px;
+}
+
+.modal-header h3 
+{
+    margin: 0;
+    font-size: 28px;
+}
+
+#modal-close 
+{
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    font-size: 24px;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+#modal-close:hover
+{
+    right: 7px;
+    top: 1px;
+    font-size: 32px;
+}
+
+.modal-body 
+{
+    padding: 20px;
+}
+
+.input-element 
+{
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.input-element > label 
+{
+    font-weight: 600;
+    flex: 1 75px;
+    margin-right: 10px;
+}
+
+#text-input
+{
+    flex: 6 200px;
+    padding: 8px;
+    font-size: 20px;
+    font-family: Modern Antiqua;
+    border: 3px outset #432818;
+    border-radius: 3px;
+    background-color: #ffe6a7;
+}
+
+.modal-footer 
+{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 10px 20px 10px;
+}
+
+#modal-accept 
+{
+    background-color: #ffe6a7;
+    margin-right: 20px;
+    padding: 10px;
+    font-family: Modern Antiqua;
+    font-size: large;
+    font-weight: 600;
+}
+
+#modal-accept:hover
+{
+    background-color: #d1b673;
+    cursor: pointer;
+}

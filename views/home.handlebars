@@ -1,0 +1,19 @@
+<main>
+    <div id="bookshelf" class="bookshelf">
+        {{#each this}}
+            {{#if title}}
+                {{> book}}
+            {{/if}}    
+        {{/each}}
+    </div>
+
+    {{> filters}}
+
+    <button id="add-book-button">
+        <img src="addBook.png" width="60">
+        Add Book
+    </button>
+
+</main>
+
+{{> modal}}

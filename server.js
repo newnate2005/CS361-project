@@ -17,8 +17,8 @@ app.use(express.static('static'));
 
 app.use(function (req, res, next) {
     console.log("== Request received");
-    console.log(" -- method:", req.method);
-    console.log(" -- url:", req.url);
+    // console.log(" -- method:", req.method);
+    // console.log(" -- url:", req.url);
     next();
 });
 
