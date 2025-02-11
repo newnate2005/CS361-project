@@ -14,6 +14,8 @@ templates['book'] = template({"compiler":[8,">= 4.3.0"],"main":function(containe
     + alias4(((helper = (helper = lookupProperty(helpers,"author") || (depth0 != null ? lookupProperty(depth0,"author") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"author","hash":{},"data":data,"loc":{"start":{"line":1,"column":54},"end":{"line":1,"column":64}}}) : helper)))
     + "\" data-length=\""
     + alias4(((helper = (helper = lookupProperty(helpers,"length") || (depth0 != null ? lookupProperty(depth0,"length") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"length","hash":{},"data":data,"loc":{"start":{"line":1,"column":79},"end":{"line":1,"column":89}}}) : helper)))
+    + "\" data-id=\""
+    + alias4(((helper = (helper = lookupProperty(helpers,"id") || (depth0 != null ? lookupProperty(depth0,"id") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data,"loc":{"start":{"line":1,"column":100},"end":{"line":1,"column":106}}}) : helper)))
     + "\">\r\n  <div class=\"book-contents\">\r\n    <div class=\"book-info-container\">\r\n      <span class=\"book-title\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"title") || (depth0 != null ? lookupProperty(depth0,"title") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data,"loc":{"start":{"line":7,"column":31},"end":{"line":7,"column":40}}}) : helper)))
     + "</span> <span class=\"book-author\">by "

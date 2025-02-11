@@ -1,7 +1,8 @@
-var path = require('path')
 var path = require('path');
 var express = require('express');
 var exphbs = require('express-handlebars');
+
+var bookData = require("./bookData.json")
 
 var app = express();
 var port = process.env.PORT || 3001;
@@ -23,7 +24,7 @@ app.use(function (req, res, next) {
 });
 
 app.get('/', function (req, res, next) {
-    res.render("home"); 
+    res.render("home", bookData); 
 });
 
 app.listen(port, function () {

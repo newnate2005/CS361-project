@@ -1,15 +1,23 @@
 <main>
+    <h3 class="intro"> Welcome to your online bookshelf, where you can keep track of all the books you've read! 
+         To get started click the add book button in the corner of your screen. Fill in the 
+         details and click finish. If you mess up or change your mind just click on the book 
+         to edit or delete it. Happy reading!      
+    </h3>
     <div id="bookshelf" class="bookshelf">
-        {{#each this}}
-            {{#if title}}
-                {{> book}}
-            {{/if}}    
-        {{/each}}
+        <div id="books-container" class="books-container">
+            {{#each this}}
+                {{#if title}}
+                    {{> book}}
+                {{/if}}    
+            {{/each}} 
+        </div>
+        <button class="add-book-button" id="other-book-button"> + </button>
     </div>
 
     {{> filters}}
 
-    <button id="add-book-button">
+    <button class="add-book-button" id="side-book-button">
         <img src="addBook.png" width="60">
         Add Book
     </button>

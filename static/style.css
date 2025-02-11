@@ -3,6 +3,7 @@ html, body
     background-color: #bb9457;
     margin: 0;
     padding: 0;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 header
@@ -20,12 +21,17 @@ header
     text-decoration: none;
 }
 
+.intro 
+{
+    margin: 15px;
+}
+
 .bookshelf
 {
     /* background-image: url("bookshelf.png");
     background-size: cover; */
     border: 15px ridge #432818;
-    height: 900px;
+    min-height: 900px;
     max-width: 75%;
     margin: 15px;
     padding: 20px;
@@ -48,6 +54,12 @@ header
     border-radius: 3px;
 }
 
+.book:hover
+{
+    background-color: #9c5f34;
+    cursor: pointer;
+}
+
 .book-contents {
     display: flex;
     flex-direction: column;
@@ -62,7 +74,7 @@ header
     margin-top: 20px;
 }
 
-#add-book-button 
+#side-book-button 
 {
     position: fixed;
     right: 30px;
@@ -70,14 +82,38 @@ header
     height: 100px;
     width: 100px;
     background-color: #d1b262;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: medium;
     border-color: #99582a;
     border-width: 4px;
     border-radius: 15px;
     cursor: pointer;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
 }
+
+#other-book-button
+{
+    display: inline-block;
+    vertical-align: top;
+    height: 230px;
+    width: 230px;
+    margin: 10px;
+    padding: 10px;
+    color: #43281811;
+    font-size: 140px;
+    background-color: #b170421a;
+    border: 5px solid #43281818;
+    border-radius: 3px;
+}
+
+#other-book-button:hover
+{
+    color: #43281891;
+    background-color: #b1704281;
+    border: 5px solid #4328187e;
+}
   
-#add-book-button:hover 
+#side-book-button:hover 
 {
     background-color: #d3a356;    
 }
@@ -255,12 +291,12 @@ header
     margin-right: 10px;
 }
 
-#text-input
+input
 {
     flex: 6 200px;
     padding: 8px;
     font-size: 20px;
-    font-family: Modern Antiqua;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     border: 3px outset #432818;
     border-radius: 3px;
     background-color: #ffe6a7;
@@ -275,16 +311,43 @@ header
 
 #modal-accept 
 {
-    background-color: #ffe6a7;
+    background-color: #d1e770;
+    color: #432818;
     margin-right: 20px;
     padding: 10px;
-    font-family: Modern Antiqua;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: large;
     font-weight: 600;
+    border-width: 2px;
+    border-radius: 4px;
+    border-color: #432818;
 }
 
 #modal-accept:hover
 {
-    background-color: #d1b673;
+    background-color: #8da133;
+    color: #432818;
+    cursor: pointer;
+}
+
+#modal-delete 
+{
+    background-color: #7c1807;
+    color: #e6cb89;
+    margin-right: 20px;
+    padding: 10px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    font-weight: 600;
+    border-radius: 4px;
+    border-width: 2px;
+    border-color: #432818;
+    border-style: solid;
+}
+
+#modal-delete:hover
+{
+    background-color: #8f4714;
+    color: #d1b262;
     cursor: pointer;
 }

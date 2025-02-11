@@ -2,17 +2,17 @@
 <div id="add-book-modal" class="hidden">
     <div class="modal-dialog">
         <div class="modal-header">
-            <h3>Add a Book</h3>
+            <h3 id="modal-title">Add a Book</h3>
             <button type="button" id="modal-close" class="modal-hide-button">&times;</button>
         </div>
         <div class="modal-body">
             <div class="input-element">
                 <label for="title-input">Title</label>
-                <textarea id="title-input"></textarea>
+                <input type="text" id="title-input">
             </div>
             <div class="input-element">
                 <label for="author-input">Author</label>
-                <textarea id="author-input"></textarea>
+                <input type="text" id="author-input">
             </div>
             <div class="input-element">
                 <label for="length-input">Number of Pages</label>
@@ -20,6 +20,7 @@
             </div>
         </div>
         <div class="modal-footer">
+            <button id="modal-delete" class="modal-delete-button">Delete</button>
             <button type="button" id="modal-accept" class="action-button">Finish</button>
         </div>
     </div>
