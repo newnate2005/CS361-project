@@ -1,11 +1,23 @@
-<div class="book" data-title="{{title}}" data-author="{{author}}" data-length="{{length}}" data-id="{{id}}">
+<div class="book" 
+     data-title="{{title}}" 
+     data-author="{{author}}" 
+     data-length="{{length}}" 
+     data-id="{{_id}}"
+     data-timesread="{{timesRead}}"
+     data-review="{{review}}"
+     data-genre="{{genre}}"
+     data-image="{{image}}">
   <div class="book-contents">
-    {{!-- <div class="book-image-container">
-      <img src="{{photoURL}}" alt="{{description}}">
-    </div> --}}
     <div class="book-info-container">
       <span class="book-title">{{title}}</span> <span class="book-author">by {{author}}</span> 
-      {{!-- <span class="book-length">{{length}} pgs</span> --}}
     </div>
+    {{#if timesRead}}
+      <div class="book-times-read">Read: {{timesRead}} times</div>
+    {{/if}}
+    {{#if image}}
+      <div class="book-image">
+         <img src="{{image}}" alt="Book image for {{title}}">
+      </div>
+    {{/if}}
   </div>
 </div>

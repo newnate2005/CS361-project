@@ -4,13 +4,16 @@
          details and click finish. If you mess up or change your mind just click on the book 
          to edit or delete it. Happy reading!      
     </h3>
+    <a href="/stats" class="stats-link">View Reading Stats</a>
+
     <div id="bookshelf" class="bookshelf">
         <div id="books-container" class="books-container">
-            {{#each this}}
+            {{#each books}}
                 {{#if title}}
                     {{> book}}
                 {{/if}}    
-            {{/each}} 
+            {{/each}}
+ 
         </div>
         <button class="add-book-button" id="other-book-button"> + </button>
     </div>

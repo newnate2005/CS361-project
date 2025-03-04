@@ -4,15 +4,21 @@
     "description": "Express serving and Handlebars templating",
     "main": "server.js",
     "scripts": {
-        "start": "node server.js",
+        "start": "concurrently \"node readingStats.js\" \"node server.js\"",
         "build": "handlebars views/partials/book.handlebars -f static/bookTemplate.js",
         "prestart": "npm run build"
     },
     "dependencies": {
+        "axios": "^1.8.1",
+        "dotenv": "^16.4.7",
         "express": "^4.21.2",
         "express-handlebars": "^8.0.1",
         "handlebars": "^4.7.8",
+        "mongoose": "^8.12.0",
         "nodemon": "^3.1.7",
         "path": "^0.12.7"
+    },
+    "devDependencies": {
+        "concurrently": "^9.1.2"
     }
 }

@@ -15,68 +15,83 @@ function insertNewBook(title, length, author, id) {
 
 var allBooks = []
 
-function handleModalAcceptClick() {
+async function handleModalAcceptClick() {
     var title  = document.getElementById('title-input').value.trim();
     var length = document.getElementById('length-input').value.trim();
     var author = document.getElementById('author-input').value.trim();
+    var timesRead = document.getElementById('timesRead-input').value.trim();
+    var review = document.getElementById('review-input').value.trim();
+    var genre = document.getElementById('genre-input').value.trim();
+    var image = document.getElementById('image-input').value.trim();
 
     if (!title) {
         alert("You must at least have a title");
         return;
     }
 
-    // Check if we're editing an existing book
-    if (currentEditingBookId) {
-        // Update the book in the array
-        for (var i = 0; i < allBooks.length; i++) {
-            if (allBooks[i].id == currentEditingBookId) {
-                allBooks[i].title  = title;
-                allBooks[i].length = length;
-                allBooks[i].author = author;
-                break;
+    let bookData = { 
+      title, 
+      author, 
+      length, 
+      timesRead: timesRead ? Number(timesRead) : 0, 
+      review, 
+      genre, 
+      image 
+    };
+
+    try {
+        if (currentEditingBookId) {
+            // Update existing book
+            let response = await fetch(`/update-book/${currentEditingBookId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bookData)
+            });
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert("Error updating book");
+            }
+        } else {
+            // Add new book
+            let response = await fetch("/add-book", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(bookData)
+            });
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert("Error adding book");
             }
         }
-        // Re-render all books based on current (or cleared) filters
-        clearFiltersAndReinsertBooks();
-        // Reset the editing flag
-        currentEditingBookId = null;
-    } else {
-        // Otherwise, add a new book
-        let bookId = Date.now();
-        allBooks.push({
-            title:  title,
-            length: length,
-            author: author,
-            id: bookId
-        });
-        // Re-render all books rather than just inserting one
-        clearFiltersAndReinsertBooks();
+    } catch (err) {
+        console.error(err);
+        alert("Operation failed");
     }
+
     hideBookModal();
 }
 
-function handleDeleteBook() {
-    // Ensure we have a book in edit mode
+async function handleDeleteBook() {
     if (!currentEditingBookId) return;
-
-    // Display a confirmation dialog
     var confirmed = window.confirm("Are you sure you want to delete this book? This action cannot be undone.");
     if (confirmed) {
-        // Remove the book from the allBooks array by filtering it out
-        allBooks = allBooks.filter(function(book) {
-            return book.id != currentEditingBookId;
-        });
-        // Reset the editing flag
-        currentEditingBookId = null;
-
-        // Re-render the book list. You can either clear the filters or simply update the UI.
-        clearFiltersAndReinsertBooks();
-        
-        // Optionally hide the modal after deletion
-        hideBookModal();
+        try {
+            let response = await fetch(`/delete-book/${currentEditingBookId}`, {
+                method: "DELETE"
+            });
+            if (response.ok) {
+                location.reload();
+            } else {
+                alert("Error deleting book");
+            }
+        } catch (err) {
+            console.error(err);
+            alert("Operation failed");
+        }
     }
 }
-
 
 function clearFiltersAndReinsertBooks() {
     document.getElementById('filter-title').value = ""
@@ -88,12 +103,18 @@ function clearFiltersAndReinsertBooks() {
 }
 
 function showEditBookModal(bookElem) {
-    // Fill the modal inputs with the current book data
+    // Existing fields
     document.getElementById('title-input').value  = bookElem.getAttribute('data-title');
     document.getElementById('author-input').value = bookElem.getAttribute('data-author'); 
     document.getElementById('length-input').value = bookElem.getAttribute('data-length');
-
-    // Store the book's id so we know which book to update
+    
+    // New fields
+    document.getElementById('timesRead-input').value = bookElem.getAttribute('data-timesread') || 0;
+    document.getElementById('review-input').value    = bookElem.getAttribute('data-review') || "";
+    document.getElementById('genre-input').value     = bookElem.getAttribute('data-genre') || "";
+    document.getElementById('image-input').value     = bookElem.getAttribute('data-image') || "";
+    
+    // Store the book's id for editing
     currentEditingBookId = bookElem.getAttribute('data-id');
 
     var modalTitle = document.getElementById('modal-title');
@@ -112,6 +133,9 @@ function showEditBookModal(bookElem) {
 }
 
 function showAddBookModal() {
+    // Reset the editing ID to ensure a new book is created
+    currentEditingBookId = null;
+    
     var modalTitle = document.getElementById('modal-title');
     var addBookModal = document.getElementById('add-book-modal');
     var modalBackdrop = document.getElementById('book-backdrop');
