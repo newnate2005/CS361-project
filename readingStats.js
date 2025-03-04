@@ -4,7 +4,7 @@ const { MongoClient } = require('mongodb');
 const app = express();
 const port = 3002;
 
-const mongoURI = "mongodb+srv://whitnath:WhiNa2669217312+@cluster0.qgi6l.mongodb.net/"; // Replace with your actual MongoDB URI
+const mongoURI = "mongodb+srv://whitnath:WhiNa2669217312+@cluster0.qgi6l.mongodb.net/";
 const dbName = "test"; 
 const collectionName = "books"; 
 
@@ -16,7 +16,7 @@ async function fetchBooksFromDB() {
         const db = client.db(dbName);
         const booksCollection = db.collection(collectionName);
         const books = await booksCollection.find({}).toArray();
-        console.log("Books fetched:", books); // Add this to check the data
+        console.log("Books fetched:", books);
         return books;
     } finally {
         await client.close();
@@ -26,39 +26,60 @@ async function fetchBooksFromDB() {
 // Calculates the reading stats for a user
 function calculateStats(books) {
     let authorCount = {};
+    let genreCount = {};
     let totalReadingTime = 0;
-
+  
     books.forEach(book => {
-        if (book.author && book.length) {
-            authorCount[book.author.trim().toLowerCase()] = (authorCount[book.author.trim().toLowerCase()] || 0) + 1;
-
-            const readingTime = parseInt(book.length);
-            if (!isNaN(readingTime)) {
-                totalReadingTime += readingTime;
-            }
+      // Process author and reading time if available
+      if (book.author && book.length) {
+        const authorKey = book.author.trim().toLowerCase();
+        authorCount[authorKey] = (authorCount[authorKey] || 0) + 1;
+        
+        const readingTime = parseInt(book.length);
+        if (!isNaN(readingTime)) {
+          totalReadingTime += readingTime;
         }
+      }
+      // Process genre if available and non-empty
+      if (book.genre && book.genre.trim() !== "") {
+        const genreKey = book.genre.trim().toLowerCase();
+        genreCount[genreKey] = (genreCount[genreKey] || 0) + 1;
+      }
     });
-
-    let mostReadAuthor = Object.entries(authorCount).reduce((a, b) => (b[1] > a[1] ? b : a), ["", 0])[0];
-
-    console.log("Stats:", { mostReadAuthor, totalReadingTime }); // Add this to log stats
+  
+    // Log the tallies for debugging
+    console.log("Author Count:", authorCount);
+    console.log("Genre Count:", genreCount);
+  
+    // Determine most read author
+    let mostReadAuthor = Object.entries(authorCount).reduce(
+      (a, b) => (b[1] > a[1] ? b : a),
+      ["", 0]
+    )[0];
+    mostReadAuthor = mostReadAuthor ? mostReadAuthor.toUpperCase() : "NO DATA";
+  
+    // Determine most read genre
+    let mostReadGenre = Object.entries(genreCount).reduce(
+      (a, b) => (b[1] > a[1] ? b : a),
+      ["", 0]
+    )[0];
+    mostReadGenre = mostReadGenre ? mostReadGenre.toUpperCase() : "NO DATA";
+  
+    console.log("Calculated Stats:", { mostReadAuthor, totalReadingTime, mostReadGenre });
+  
     return {
-        mostReadAuthor: mostReadAuthor || "No data",  // Provide a default message if no author found
-        totalReadingTime: totalReadingTime || 0  // Ensure the reading time is 0 if no books processed
+      mostReadAuthor: `THIS IS YOUR MOST READ AUTHOR: ${mostReadAuthor}`,
+      totalReadingTime: `THE AMOUNT OF TIME READING: ${totalReadingTime} minutes`,
+      mostReadGenre: `THIS IS YOUR MOST READ GENRE: ${mostReadGenre}`
     };
-}
+}  
 
 // API endpoint to fetch and return stats
 app.get('/reading-stats', async (req, res) => {
     try {
         const books = await fetchBooksFromDB();
         const stats = calculateStats(books);
-
-        // Pass the stats data to the stats.handlebars template
-        res.render('stats', {
-            mostReadAuthor: stats.message.mostReadAuthor,
-            totalReadingTime: stats.message.totalReadingTime
-        });
+        res.json(stats);
     } catch (err) {
         console.error("Error fetching stats:", err);
         res.status(500).json({ error: "Failed to fetch reading stats" });

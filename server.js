@@ -94,17 +94,21 @@ app.get("/", async (req, res) => {
     }
 });
 
+
 app.get('/stats', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:3002/reading-stats'); // Microservice URL
-        res.render('stats', { stats: response.data.message });
+      const response = await axios.get('http://localhost:3002/reading-stats');
+      console.log("Stats received from microservice:", response.data); // Log what you get
+      res.render('stats', {
+        mostReadAuthor: response.data.mostReadAuthor,
+        totalReadingTime: response.data.totalReadingTime,
+        mostReadGenre: response.data.mostReadGenre
+      });
     } catch (error) {
-        console.error("Error fetching stats:", error);
-        res.status(500).send("Failed to load reading stats.");
+      console.error("Error fetching stats:", error);
+      res.status(500).send("Failed to load reading stats.");
     }
 });
-
-
 
 app.listen(port, function () {
     console.log("== Server is listening on port", port);
