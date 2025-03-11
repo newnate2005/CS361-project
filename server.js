@@ -1,17 +1,16 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var path    = require('path');
+var axios = require('axios');
 
 const connectDB = require("./db");
 connectDB();
 const Book = require("./models/Book");
 
-const axios = require('axios');
-
 var app = express();
 var port = process.env.PORT || 3001;
 
-app.use(express.urlencoded({extended:true}))
+app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
 app.engine("handlebars", exphbs.engine({
@@ -24,13 +23,10 @@ app.use(express.static('static'));
 
 app.use(function (req, res, next) {
     console.log("== Request received");
-    // console.log(" -- method:", req.method);
-    // console.log(" -- url:", req.url);
     next();
 });
 
 app.post("/add-book", async (req, res) => {
-    console.log("Received POST /add-book with body:", req.body);
     try {
         const { title, author, length, timesRead, review, genre, image } = req.body;
         if (!title) return res.status(400).send("Title is required");
@@ -51,7 +47,6 @@ app.post("/add-book", async (req, res) => {
         res.status(500).send("Error adding book");
     }
 });
-
 
 app.put("/update-book/:id", async (req, res) => {
     try {
@@ -85,8 +80,7 @@ app.delete("/delete-book/:id", async (req, res) => {
 
 app.get("/", async (req, res) => {
     try {
-        const books = await Book.find({}).lean();  // Convert to plain objects
-        console.log("Books retrieved:", books);
+        const books = await Book.find({}).lean();
         res.render("home", { books });
     } catch (err) {
         console.error(err);
@@ -94,11 +88,9 @@ app.get("/", async (req, res) => {
     }
 });
 
-
 app.get('/stats', async (req, res) => {
     try {
       const response = await axios.get('http://localhost:3002/reading-stats');
-      console.log("Stats received from microservice:", response.data); // Log what you get
       res.render('stats', {
         mostReadAuthor: response.data.mostReadAuthor,
         totalReadingTime: response.data.totalReadingTime,
@@ -112,12 +104,9 @@ app.get('/stats', async (req, res) => {
 
 app.get('/filtered', async (req, res) => {
   try {
-    // Forward the query parameters to the filtering microservice
     const response = await axios.get('http://localhost:3003/filter-books', {
       params: req.query
     });
-    // The microservice should return an object like:
-    // { message: "No books found matching the filter criteria", books: [...] }
     res.render('filtered', {
       books: response.data.books,
       message: response.data.message
@@ -128,11 +117,26 @@ app.get('/filtered', async (req, res) => {
   }
 });
 
-app.get('/share-book/:id', (req, res) => {
-  const bookId = req.params.id;
-  res.redirect(`http://localhost:3004/share/${bookId}`);
+app.get('/share-book/:id', async (req, res) => {
+    try {
+        const response = await axios.get(`http://localhost:3004/share/${req.params.id}`);
+        const book = response.data.book;
+        res.render('share', { book });
+    } catch (error) {
+        console.error("Error fetching book details:", error);
+        res.status(500).send("Failed to load sharing page.");
+    }
 });
 
+app.post('/generate-share', async (req, res) => {
+    try {
+        const response = await axios.post('http://localhost:3004/generate-share', req.body);
+        res.json(response.data);
+    } catch (error) {
+        console.error("Error generating share content:", error);
+        res.status(500).send("Failed to generate share content.");
+    }
+});
 
 app.listen(port, function () {
     console.log("== Server is listening on port", port);

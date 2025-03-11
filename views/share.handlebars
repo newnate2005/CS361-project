@@ -1,0 +1,78 @@
+{{!-- views/share.handlebars --}}
+<h1>Share {{book.title}}</h1>
+<a href="/">Back to Home</a>
+<form id="share-form">
+    <input type="hidden" name="bookId" value="{{book._id}}">
+    <div>
+        <label>
+            <input type="checkbox" name="shareFields" value="title" checked> Title
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="shareFields" value="author" checked> Author
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="shareFields" value="length" checked> Length
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="shareFields" value="timesRead" checked> Times Read
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="shareFields" value="review" checked> Review
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="shareFields" value="genre" checked> Genre
+        </label>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="shareFields" value="image" checked> Image
+        </label>
+    </div>
+    <button type="button" onclick="generateShareContent()">Generate Shareable Content</button>
+</form>
+<div id="share-content"></div>
+<div id="share-image"></div>
+<div id="email-share"></div>
+<div id="social-share"></div>
+<script>
+    async function generateShareContent() {
+        const form = document.getElementById('share-form');
+        const formData = new FormData(form);
+        const bookId = formData.get('bookId');
+        const shareFields = formData.getAll('shareFields');
+
+        const response = await fetch('/generate-share', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ bookId, shareFields })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('share-content').textContent = data.shareContent;
+            document.getElementById('share-image').innerHTML = `<img src="data:image/png;base64,${data.imageBase64}" alt="Shareable Image"/>`;
+            
+            const emailBody = encodeURIComponent(data.shareContent);
+            document.getElementById('email-share').innerHTML = `<a href="mailto:?subject=Check out this book!&body=${emailBody}">Share via Email</a>`;
+            
+            const twitterLink = `https://twitter.com/intent/tweet?text=${encodeURIComponent(data.shareContent)}`;
+            const facebookLink = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+            document.getElementById('social-share').innerHTML = `
+                <a href="${twitterLink}" target="_blank">Share on Twitter</a>
+                <a href="${facebookLink}" target="_blank">Share on Facebook</a>
+            `;
+        } else {
+            alert('Failed to generate share content');
+        }
+    }
+</script>

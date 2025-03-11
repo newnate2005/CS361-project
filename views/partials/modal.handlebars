@@ -37,7 +37,18 @@
         </div>
         <div class="modal-footer">
             <button id="modal-delete" class="modal-delete-button">Delete</button>
+            <button type="button" id="modal-share" class="modal-share-button" onclick="shareBook()">Share</button>
             <button type="button" id="modal-accept" class="action-button">Finish</button>
         </div>
     </div>
 </div>
+
+<script>
+    function shareBook() {
+        if (currentEditingBookId) {
+            window.location.href = `/share-book/${currentEditingBookId}`;
+        } else {
+            alert('Please save the book before sharing.');
+        }
+    }
+</script>
