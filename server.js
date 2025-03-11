@@ -110,6 +110,30 @@ app.get('/stats', async (req, res) => {
     }
 });
 
+app.get('/filtered', async (req, res) => {
+  try {
+    // Forward the query parameters to the filtering microservice
+    const response = await axios.get('http://localhost:3003/filter-books', {
+      params: req.query
+    });
+    // The microservice should return an object like:
+    // { message: "No books found matching the filter criteria", books: [...] }
+    res.render('filtered', {
+      books: response.data.books,
+      message: response.data.message
+    });
+  } catch (error) {
+    console.error("Error fetching filtered books:", error);
+    res.status(500).send("Failed to load filtered books.");
+  }
+});
+
+app.get('/share-book/:id', (req, res) => {
+  const bookId = req.params.id;
+  res.redirect(`http://localhost:3004/share/${bookId}`);
+});
+
+
 app.listen(port, function () {
     console.log("== Server is listening on port", port);
 });

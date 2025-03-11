@@ -1,0 +1,40 @@
+<main>
+  <script src="/filtered.js" charset="utf-8" defer></script>
+  <h1>Filter & Search Books</h1>
+  <!-- Filter/Search Form -->
+  <form id="filter-form">
+    <div>
+      <label for="author">Author:</label>
+      <input type="text" id="author" name="author" placeholder="e.g., Tolkien">
+    </div>
+    <div>
+      <label for="genre">Genre:</label>
+      <input type="text" id="genre" name="genre" placeholder="e.g., Fiction">
+    </div>
+    <div>
+      <label for="timesRead">Times Read:</label>
+      <input type="number" id="timesRead" name="timesRead" placeholder="e.g., 3">
+    </div>
+    <div>
+      <label for="keyword">Keyword:</label>
+      <input type="text" id="keyword" name="keyword" placeholder="e.g., Ring">
+    </div>
+    <div>
+      <button type="submit" id="apply-filters">Apply Filters</button>
+      <button type="reset" id="reset-filters">Reset Filters</button>
+    </div>
+  </form>
+
+  <!-- Container for Filtered Results -->
+  <div id="filtered-books" class="books-container">
+    <!-- Filtered book cards will be inserted here -->
+  </div>
+
+  <!-- Optionally, display a message if no books found -->
+  <p id="no-results" style="display:none;">No books found matching your criteria.</p>
+
+  <a href="/">Back to Home</a>
+  
+</main>
+
+{{> modal}}
