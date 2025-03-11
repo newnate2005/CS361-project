@@ -6,7 +6,7 @@ const multer = require('multer');
 const fs = require('fs');
 
 const app = express();
-const port = 3005;
+var port = process.env.PORT || 3005;
 
 const mongoURI = "mongodb+srv://whitnath:WhiNa2669217312+@cluster0.qgi6l.mongodb.net/";
 const dbName = "test";

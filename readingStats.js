@@ -2,7 +2,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-const port = 3002;
+var port = process.env.PORT || 3002;
 
 const mongoURI = "mongodb+srv://whitnath:WhiNa2669217312+@cluster0.qgi6l.mongodb.net/";
 const dbName = "test"; 

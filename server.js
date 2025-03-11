@@ -1,7 +1,7 @@
 var express = require('express');
 var exphbs  = require('express-handlebars');
 var path    = require('path');
-var axios = require('axios');
+var axios   = require('axios');
 
 const connectDB = require("./db");
 connectDB();
@@ -9,6 +9,11 @@ const Book = require("./models/Book");
 
 var app = express();
 var port = process.env.PORT || 3001;
+
+// Define microservice base URLs via environment variables, with local defaults:
+const STATS_SERVICE_URL = process.env.STATS_SERVICE_URL || 'http://localhost:3002';
+const FILTERS_SERVICE_URL = process.env.FILTERS_SERVICE_URL || 'http://localhost:3003';
+const SHARE_SERVICE_URL = process.env.SHARE_SERVICE_URL || 'http://localhost:3004';
 
 app.use(express.urlencoded({extended:true}));
 app.use(express.json());
@@ -88,9 +93,10 @@ app.get("/", async (req, res) => {
     }
 });
 
+// Reading Stats Route
 app.get('/stats', async (req, res) => {
     try {
-      const response = await axios.get('http://localhost:3002/reading-stats');
+      const response = await axios.get(`${STATS_SERVICE_URL}/reading-stats`);
       console.log("Request to stats");
       res.render('stats', {
         mostReadAuthor: response.data.mostReadAuthor,
@@ -103,9 +109,10 @@ app.get('/stats', async (req, res) => {
     }
 });
 
+// Filtered Books Route
 app.get('/filtered', async (req, res) => {
   try {
-    const response = await axios.get('http://localhost:3003/filter-books', {
+    const response = await axios.get(`${FILTERS_SERVICE_URL}/filter-books`, {
       params: req.query
     });
     console.log("Request to filters");
@@ -119,9 +126,10 @@ app.get('/filtered', async (req, res) => {
   }
 });
 
+// Share Book Route
 app.get('/share-book/:id', async (req, res) => {
     try {
-        const response = await axios.get(`http://localhost:3004/share/${req.params.id}`);
+        const response = await axios.get(`${SHARE_SERVICE_URL}/share/${req.params.id}`);
         const book = response.data.book;
         console.log("Request to share");
         res.render('share', { book });
@@ -133,7 +141,7 @@ app.get('/share-book/:id', async (req, res) => {
 
 app.post('/generate-share', async (req, res) => {
     try {
-        const response = await axios.post('http://localhost:3004/generate-share', req.body);
+        const response = await axios.post(`${SHARE_SERVICE_URL}/generate-share`, req.body);
         res.json(response.data);
         console.log("Request to share");
     } catch (error) {

@@ -3,7 +3,7 @@ const express = require('express');
 const { MongoClient } = require('mongodb');
 
 const app = express();
-const port = 3003; // Microservice port
+var port = process.env.PORT || 3003;
 
 // Use your connection string (make sure it's URL-encoded if needed)
 const mongoURI = "mongodb+srv://whitnath:WhiNa2669217312%2B@cluster0.qgi6l.mongodb.net/bookshelf?retryWrites=true&w=majority";

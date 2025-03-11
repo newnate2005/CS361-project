@@ -5,7 +5,7 @@ const path = require('path');
 const { createCanvas } = require('canvas');
 
 const app = express();
-const port = 3004;
+var port = process.env.PORT || 3004;
 
 const mongoURI = "mongodb+srv://whitnath:WhiNa2669217312+@cluster0.qgi6l.mongodb.net/";
 const dbName = "test";
