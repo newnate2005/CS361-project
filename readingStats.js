@@ -16,7 +16,7 @@ async function fetchBooksFromDB() {
         const db = client.db(dbName);
         const booksCollection = db.collection(collectionName);
         const books = await booksCollection.find({}).toArray();
-        console.log("Books fetched:", books);
+        // console.log("Books fetched:", books);
         return books;
     } finally {
         await client.close();

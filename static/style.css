@@ -210,6 +210,12 @@ header
     top: 100px;
 }
 
+#share
+{
+    margin: 20px;
+    font-size: 20px;
+}
+
 #filtered
 {
     margin: 35px;

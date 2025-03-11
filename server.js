@@ -22,7 +22,7 @@ app.set("view engine", "handlebars");
 app.use(express.static('static'));
 
 app.use(function (req, res, next) {
-    console.log("== Request received");
+    // console.log("== Request received");
     next();
 });
 
@@ -91,6 +91,7 @@ app.get("/", async (req, res) => {
 app.get('/stats', async (req, res) => {
     try {
       const response = await axios.get('http://localhost:3002/reading-stats');
+      console.log("Request to stats");
       res.render('stats', {
         mostReadAuthor: response.data.mostReadAuthor,
         totalReadingTime: response.data.totalReadingTime,
@@ -107,6 +108,7 @@ app.get('/filtered', async (req, res) => {
     const response = await axios.get('http://localhost:3003/filter-books', {
       params: req.query
     });
+    console.log("Request to filters");
     res.render('filtered', {
       books: response.data.books,
       message: response.data.message
@@ -121,6 +123,7 @@ app.get('/share-book/:id', async (req, res) => {
     try {
         const response = await axios.get(`http://localhost:3004/share/${req.params.id}`);
         const book = response.data.book;
+        console.log("Request to share");
         res.render('share', { book });
     } catch (error) {
         console.error("Error fetching book details:", error);
@@ -132,6 +135,7 @@ app.post('/generate-share', async (req, res) => {
     try {
         const response = await axios.post('http://localhost:3004/generate-share', req.body);
         res.json(response.data);
+        console.log("Request to share");
     } catch (error) {
         console.error("Error generating share content:", error);
         res.status(500).send("Failed to generate share content.");

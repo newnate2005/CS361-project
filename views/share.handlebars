@@ -1,6 +1,7 @@
 {{!-- views/share.handlebars --}}
+<main id="share">
 <h1>Share {{book.title}}</h1>
-<a href="/">Back to Home</a>
+
 <form id="share-form">
     <input type="hidden" name="bookId" value="{{book._id}}">
     <div>
@@ -38,12 +39,16 @@
             <input type="checkbox" name="shareFields" value="image" checked> Image
         </label>
     </div>
-    <button type="button" onclick="generateShareContent()">Generate Shareable Content</button>
+    <button type="button" class="action-button" onclick="generateShareContent()">Generate Shareable Content</button>
 </form>
 <div id="share-content"></div>
 <div id="share-image"></div>
 <div id="email-share"></div>
 <div id="social-share"></div>
+
+<button class="micro-button"><a class="link" href="/">Back to Home</a></button>
+
+</main>
 <script>
     async function generateShareContent() {
         const form = document.getElementById('share-form');
