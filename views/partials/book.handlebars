@@ -9,14 +9,18 @@
      data-id="{{_id}}">  <!-- Ensure _id is used here -->
   <div class="book-contents">
     <div class="book-info-container">
-      <span class="book-title">{{title}}</span> <span class="book-author">by {{author}}</span> 
-    </div>
-    {{#if timesRead}}
+      <span class="book-title">{{title}}</span> <span class="book-author">by {{author}}</span>
+    {{!-- {{#if timesRead}}
       <div class="book-times-read">Read: {{timesRead}} times</div>
-    {{/if}}
+    {{/if}} --}}
+    </div>
     {{#if image}}
-      <div class="book-image">
-         <img src="{{image}}" alt="Book image for {{title}}">
+      <div class="book-image-container">
+         <img class="book-image" src="{{image}}" alt="Book image for {{title}}">
+      </div>
+    {{else}}
+      <div class="book-image-container">
+         <img class="book-image" src="http://localhost:3005/image/{{_id}}" alt="Book image for {{title}}">
       </div>
     {{/if}}
   </div>

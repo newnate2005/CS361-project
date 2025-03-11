@@ -1,27 +1,27 @@
-<main>
+<main id="filtered">
   <script src="/filtered.js" charset="utf-8" defer></script>
   <h1>Filter & Search Books</h1>
   <!-- Filter/Search Form -->
   <form id="filter-form">
-    <div>
+    <div class="filter-input">
       <label for="author">Author:</label>
       <input type="text" id="author" name="author" placeholder="e.g., Tolkien">
     </div>
-    <div>
+    <div class="filter-input">
       <label for="genre">Genre:</label>
-      <input type="text" id="genre" name="genre" placeholder="e.g., Fiction">
+      <input type="text" id="genre" name="genre" placeholder="e.g., Fantasy">
     </div>
-    <div>
+    <div class="filter-input">
       <label for="timesRead">Times Read:</label>
       <input type="number" id="timesRead" name="timesRead" placeholder="e.g., 3">
     </div>
-    <div>
+    <div class="filter-input">
       <label for="keyword">Keyword:</label>
       <input type="text" id="keyword" name="keyword" placeholder="e.g., Ring">
     </div>
     <div>
-      <button type="submit" id="apply-filters">Apply Filters</button>
-      <button type="reset" id="reset-filters">Reset Filters</button>
+      <button type="submit" class="filter-button" id="apply-filters">Apply Filters</button>
+      <button type="reset" class="filter-button" id="reset-filters">Reset Filters</button>
     </div>
   </form>
 
@@ -33,7 +33,7 @@
   <!-- Optionally, display a message if no books found -->
   <p id="no-results" style="display:none;">No books found matching your criteria.</p>
 
-  <a href="/">Back to Home</a>
+  <button class="micro-button"><a class="link" href="/">Back to Home</a></button>
   
 </main>
 

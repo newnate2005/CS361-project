@@ -68,9 +68,9 @@ function calculateStats(books) {
     console.log("Calculated Stats:", { mostReadAuthor, totalReadingTime, mostReadGenre });
   
     return {
-      mostReadAuthor: `THIS IS YOUR MOST READ AUTHOR: ${mostReadAuthor}`,
-      totalReadingTime: `THE AMOUNT OF TIME READING: ${totalReadingTime} minutes`,
-      mostReadGenre: `THIS IS YOUR MOST READ GENRE: ${mostReadGenre}`
+      mostReadAuthor: `Most read author: ${mostReadAuthor}`,
+      totalReadingTime: `Average mount of time spent reading: ${totalReadingTime} MINUTES`,
+      mostReadGenre: `Most read genre: ${mostReadGenre}`
     };
 }  
 

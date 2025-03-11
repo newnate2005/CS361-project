@@ -14,8 +14,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.json());
 
 app.engine("handlebars", exphbs.engine({
-    defaultLayout: "main", // Load the main layout
-    layoutsDir: path.join(__dirname, 'views/layouts/') // Ensure layouts path is present
+    defaultLayout: "main",
+    layoutsDir: path.join(__dirname, 'views/layouts/')
 }));
 
 app.set("view engine", "handlebars");
@@ -35,7 +35,7 @@ app.post("/add-book", async (req, res) => {
             title, 
             author, 
             length, 
-            timesRead: timesRead || 0, // default to 0 if not provided
+            timesRead: timesRead || 0, 
             review, 
             genre, 
             image 

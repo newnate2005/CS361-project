@@ -9,6 +9,7 @@ html, body
 header
 {
     background-color: #432818;
+    /* background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/53554260151341.5a3e34830d41b.jpg"); */
     width: auto;
     padding: 12px;
     margin-bottom: 20px;
@@ -23,13 +24,12 @@ header
 
 .intro 
 {
-    margin: 15px;
+    margin: 20px;
 }
 
 .bookshelf
 {
-    /* background-image: url("bookshelf.png");
-    background-size: cover; */
+    background-image: url("https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/53554260151341.5a3e34830d41b.jpg");
     border: 15px ridge #432818;
     min-height: 900px;
     max-width: 75%;
@@ -43,7 +43,7 @@ header
 .book {
     display: inline-block;
     vertical-align: top;
-    height: 200px;
+    height: 220px;
     width: 200px;
     margin: 10px;
     padding: 10px;
@@ -65,13 +65,28 @@ header
     flex-direction: column;
     align-items: center;
     text-align: center;
-    height: 100%;
-    width: 100%;
+    height: 220px;
+    width: 200px;
 }
 
 .book-info-container {
-    width: 100%;
+    width: 200px;
     margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.book-image-container {
+    height: 200px;
+    width: 200px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.book-image
+{
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 #side-book-button 
@@ -95,15 +110,16 @@ header
 {
     display: inline-block;
     vertical-align: top;
-    height: 230px;
+    height: 250px;
     width: 230px;
     margin: 10px;
     padding: 10px;
     color: #43281811;
     font-size: 140px;
-    background-color: #b170421a;
-    border: 5px solid #43281818;
+    background-color: #b1704248;
+    border: 5px solid #4328183a;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 #other-book-button:hover
@@ -116,6 +132,48 @@ header
 #side-book-button:hover 
 {
     background-color: #d3a356;    
+}
+
+.content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.micro-button-container {
+    display: flex;
+    flex-direction: column;
+    /* position: absolute;
+    right: 20px; */
+    top: 200px; /* Adjusted to be below the intro and level with or below the top of the bookshelf */
+    margin-right: 20px;
+}
+
+.micro-button {
+    margin: 10px 0;
+    height: auto;
+    width: auto;
+    padding: 10px;
+    background-color: #432818;
+    border: 3px solid;
+    text-align: center;
+    white-space: normal; /* Allow text to wrap */
+}
+
+.micro-button:hover {
+    background-color: #432818d2;
+    cursor: pointer;
+}
+
+.link
+{
+    color: #d1b262;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px;
 }
 
 ::-webkit-scrollbar {
@@ -135,50 +193,64 @@ header
     background: #d1b262;
 }
 
-/* -------------- Filter CSS Stuff ------------------ */
+/* -------------- Microservice CSS Stuff ------------------ */
 
-.filter-container {
-    display: none; /* Until filters are actually implemented */
+#stats
+{
+    margin: 20px;
+    font-size: 20px;
+}
 
-    position: sticky;
-    bottom: 90%;
-    left: 85%;
+#stats-image
+{
+    height: 300px;
+    width: 300px;
+    margin: 20px;
+    position: fixed;
+    right: 50%;
+    top: 100px;
+}
 
-    min-width: 200px;
-    max-width: 250px;
-    margin: 25px;
-    padding: 20px;
-    border-radius: 3px;
-    background-color: #99582a;
-  }
-  
-  .filter-container h2 {
-    margin: 0;
-  }
-  
-  .filter-input-container {
-    width: 100%;
-    margin: 20px 0;
+#filtered
+{
+    margin: 35px;
+    font-size: larger;
+}
+
+.filter-input
+{
     display: flex;
     align-items: center;
-  }
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.filter-input > label
+{
+    flex: 1 75px;
+    margin-right: 10px;
+}
+
+.filter-button
+{
+    font-size: 20px;
+    color: #d1b673;
+    padding: 10px;
+    background-color: #8f4714;
+    border: 1px solid #99582a;
+    border-radius: 5px;
+    font-weight: lighter;
+    cursor: pointer;
+}
+
+.filter-button:hover
+{
+    background-color: #d1b262;
+    border-color: #432818;
+    color: #432818;
+}
   
-  .filter-input-element {
-    margin: 0 5px;
-    flex: 1 1 100%;
-  }
-  
-  .filter-input {
-    font-size: 14px;
-    width: 100%;
-    margin-left: 10px;
-    padding: 3px;
-    background-color: #d1b673;
-    border: 1px solid #d1b673;
-    border-radius: 3px;
-  }
-  
-  .action-button {
+.action-button {
     font-size: 20px;
     color: #d1b673;
     padding: 10px;
@@ -187,17 +259,13 @@ header
     border-radius: 5px;
     font-weight: lighter;
     cursor: pointer;
-  }
+ }
   
-  .action-button:hover {
+.action-button:hover {
     background-color: #d1b262;
     border-color: #432818;
     color: #432818;
-  }
-  
-  #filter-update-button {
-    width: 100%;
-  }
+}
 
 
 /* -------------- Modal CSS Stuff ------------------- */
@@ -282,6 +350,7 @@ header
     align-items: center;
     font-size: 20px;
     margin: 10px 0;
+    
 }
 
 .input-element > label 
@@ -292,6 +361,17 @@ header
 }
 
 input
+{
+    flex: 6 200px;
+    padding: 8px;
+    font-size: 20px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border: 3px outset #432818;
+    border-radius: 3px;
+    background-color: #ffe6a7;
+}
+
+textarea
 {
     flex: 6 200px;
     padding: 8px;
@@ -326,6 +406,27 @@ input
 #modal-accept:hover
 {
     background-color: #8da133;
+    color: #432818;
+    cursor: pointer;
+}
+
+#modal-share 
+{
+    background-color: #ffda33;
+    color: #432818;
+    margin-right: 20px;
+    padding: 10px;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    font-weight: 600;
+    border-width: 2px;
+    border-radius: 4px;
+    border-color: #432818;
+}
+
+#modal-share:hover
+{
+    background-color: #e2b330;
     color: #432818;
     cursor: pointer;
 }
